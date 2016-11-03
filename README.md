@@ -1,7 +1,8 @@
 # Powershell Script
-
+```
 Search-EventForUser.ps1: Powershell script that search through the Windows event logs for specific user
 Remote-WmiExecute.ps1: Execute command remotely using WMI
+```
 
 # Usage
 ```
@@ -15,6 +16,7 @@ module-import .\Search-EventForUser.ps1; $ips = @('DC01', 'DC02'); foreach($ip i
 ```
 
 # Todo
+
 Add an option to fetch all the DCs
 
 Search for multiple users at the same time
