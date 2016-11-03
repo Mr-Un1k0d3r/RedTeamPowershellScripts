@@ -1,6 +1,8 @@
-# Powershell Script Search-EventForUser
+# Powershell Script
 
-Powershell script that search through the Windows event logs for specific user
+Search-EventForUser: Powershell script that search through the Windows event logs for specific user
+
+Remote-WmiExecute: Execute command remotely using WMI
 
 # Usage
 ```
