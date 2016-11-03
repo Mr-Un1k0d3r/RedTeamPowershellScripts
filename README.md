@@ -1,4 +1,4 @@
-# Powershell-Search-EventForUser
+# Powershell Script Search-EventForUser
 
 Powershell script that search through the Windows event logs for specific user
 
