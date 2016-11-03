@@ -23,11 +23,11 @@ module-import .\Remote-WmiExecute.ps1.ps1; Remote-WmiExecute.ps1 -ComputerName v
 # Todo
 
 1. Search-EventForUser.ps1:
-⋅⋅*Add an option to fetch all the DCs
-⋅⋅*Search for multiple users at the same time
-⋅⋅*Parse the output and make it more readable
+* Add an option to fetch all the DCs
+* Search for multiple users at the same time
+* Parse the output and make it more readable
 2. Remote-WmiExecute.ps1:
-⋅⋅*Improve error handling (Access Denied etc...)
+* Improve errors handling (Access Denied etc...)
 
 # Credit
 Charles F. Hamilton Aka Mr.Un1k0d3r RingZer0 Team
