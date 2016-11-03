@@ -1,10 +1,11 @@
-# Powershell Script
+# Read Team Powershell Scripts
+
 ```
 Search-EventForUser.ps1: Powershell script that search through the Windows event logs for specific user
 Remote-WmiExecute.ps1: Execute command remotely using WMI
 ```
 
-# Search-EventForUser Usage
+# Search-EventForUser.ps1 Usage
 ```
 module-import .\Search-EventForUser.ps1; Search-EventForUser -User MrUn1k0d3r
 
