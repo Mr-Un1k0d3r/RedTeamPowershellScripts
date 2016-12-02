@@ -3,7 +3,7 @@
 ```
 Search-EventForUser.ps1: Powershell script that search through the Windows event logs for specific user
 Remote-WmiExecute.ps1: Execute command remotely using WMI
-Take-Screenshot.ps1: Take a screenshot
+Take-Screenshot.ps1: Take a screenshot (PNG)
 ```
 
 # Search-EventForUser.ps1 Usage
