@@ -8,15 +8,15 @@ function Take-Screenshot {
 	)
 	
 	BEGIN {
-		Write-Host "[+] Capturing screenshot"
+
 	}
 	
 	PROCESS {
 		[Reflection.Assembly]::LoadWithPartialName("System.Drawing") | Out-Null
-		$size = Get-WmiObject -Class Win32_DesktopMonitor | Select-Object ScreenWidth,ScreenHeight
-		
-		Write-Host "[+] Screen resolution is $($size.ScreenWidth) x $($size.ScreenHeight)"
-		$bounds = [Drawing.Rectangle]::FromLTRB(0, 0,  ([int]($size.ScreenWidth[1])),  ([int]($size.ScreenHeight[1])))
+		[Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms") | Out-Null
+
+		$bounds = [System.Windows.Forms.Screen]::AllScreens.Bounds
+		Write-Host "[+] Screen resolution is $($bounds.Width) x $($bounds.Height)"
 		$bmp = New-Object Drawing.Bitmap $bounds.width, $bounds.height
 		$graphics = [Drawing.Graphics]::FromImage($bmp)
 
