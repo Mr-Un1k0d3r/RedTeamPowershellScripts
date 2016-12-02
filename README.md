@@ -3,6 +3,7 @@
 ```
 Search-EventForUser.ps1: Powershell script that search through the Windows event logs for specific user
 Remote-WmiExecute.ps1: Execute command remotely using WMI
+Take-Screenshot.ps1: Take a screenshot
 ```
 
 # Search-EventForUser.ps1 Usage
@@ -18,7 +19,12 @@ module-import .\Search-EventForUser.ps1; $ips = @('DC01', 'DC02'); foreach($ip i
 
 # Remote-WmiExecute.ps1 Usage
 ```
-module-import .\Remote-WmiExecute.ps1.ps1; Remote-WmiExecute.ps1 -ComputerName victim01 -Payload "cmd.exe /c whoami"
+module-import .\Remote-WmiExecute.ps1; Remote-WmiExecute -ComputerName victim01 -Payload "cmd.exe /c whoami"
+```
+
+# Take-Screenshot.ps1 Usage
+```
+module-import .\Take-Screenshot.ps1; Take-Screenshot -Path C:\test.png
 ```
 
 # Todo
