@@ -35,6 +35,8 @@ module-import .\Take-Screenshot.ps1; Take-Screenshot -Path C:\test.png
   * Parse the output and make it more readable
 2. Remote-WmiExecute.ps1:
   * Improve errors handling (Access Denied etc...)
+3. Take-Screenshot.ps1:
+  * Handle multiple screens
 
 # Credit
 Charles F. Hamilton Aka Mr.Un1k0d3r RingZer0 Team
