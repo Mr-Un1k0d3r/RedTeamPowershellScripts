@@ -15,6 +15,10 @@ function Take-Screenshot {
 	PROCESS {
 		[Reflection.Assembly]::LoadWithPartialName("System.Drawing") | Out-Null
 		[Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms") | Out-Null
+		
+		if(-Not [Environment]::UserInteractive) {
+			Write-Host "[-] WARNING process is not interactive your screen capture will likely fail"
+		}
 
 		$bounds = [System.Windows.Forms.Screen]::AllScreens.Bounds
 		Write-Host "[+] Screen resolution is $($bounds.Width) x $($bounds.Height)"
