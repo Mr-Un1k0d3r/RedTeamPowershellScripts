@@ -1,6 +1,7 @@
 function Take-Screenshot {
 	# Charles F. Hamilton - Mandiant 2016
 	# Screen capture using powershell
+	# Output file is a png
 	
 	param(
 	[Parameter(Mandatory=$True)]
