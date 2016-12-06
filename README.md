@@ -1,4 +1,4 @@
-# Read Team Powershell Scripts
+# Red Team Powershell Scripts
 
 ```
 Search-EventForUser.ps1: Powershell script that search through the Windows event logs for specific user
