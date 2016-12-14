@@ -7,7 +7,7 @@ function Search-EventForUser {
 	#		Parse the output and make it more readable
 	
 	param(
-	[Parameter(Mandatory=$True)]
+	[Parameter(Mandatory=$True, ValueFromPipeline=$true)]
 	[string]$User,
 	[Parameter(Mandatory=$False)]
 	[string]$ComputerName = (Get-Item env:COMPUTERNAME).Value,
@@ -25,7 +25,7 @@ function Search-EventForUser {
 			# Todo
 		}
 	
-		ForEach($item in $User.Split(",")) {
+		ForEach($item in $User) {
 			Write-Host "[+] Parsing Log looking for $($item)"
 			$xmlFilter = "<QueryList><Query Id=""0"" Path=""Security""><Select Path=""Security"">*[System[(EventID=4624)] and EventData[Data[@Name=""TargetUserName""]=""$($item)""]]</Select></Query></QueryList>";
 			$data = Get-WinEvent -FilterXml $xmlFilter -ComputerName $ComputerName -ErrorAction SilentlyContinue | Select Message;
