@@ -16,7 +16,7 @@ function Search-EventForUser {
 	)
 	
 	BEGIN {
-		Write-Host "[+] Parsing Event Log on $($ComputerName) looking for ""$($User)"""
+		Write-Host "[+] Parsing Event Log on $($ComputerName)"
 	}
 	
 	PROCESS {
@@ -25,15 +25,18 @@ function Search-EventForUser {
 			# Todo
 		}
 	
-		$xmlFilter = "<QueryList><Query Id=""0"" Path=""Security""><Select Path=""Security"">*[System[(EventID=4624)] and EventData[Data[@Name=""TargetUserName""]=""$($user)""]]</Select></Query></QueryList>";
-		$data = Get-WinEvent -FilterXml $xmlFilter -ComputerName $ComputerName -ErrorAction SilentlyContinue | Select Message;
-		if($data) {
-			ForEach($entry in $data) {
-				Write-Host "[+] Event found" 
-				Write-Host $entry.Message
+		ForEach($item in $User.Split(",")) {
+			Write-Host "[+] Parsing Log looking for $($item)"
+			$xmlFilter = "<QueryList><Query Id=""0"" Path=""Security""><Select Path=""Security"">*[System[(EventID=4624)] and EventData[Data[@Name=""TargetUserName""]=""$($item)""]]</Select></Query></QueryList>";
+			$data = Get-WinEvent -FilterXml $xmlFilter -ComputerName $ComputerName -ErrorAction SilentlyContinue | Select Message;
+			if($data) {
+				ForEach($entry in $data) {
+					Write-Host "[+] Event found" 
+					Write-Host $entry.Message
+				}
+			} else {
+				Write-Host "[-] No event found..."
 			}
-		} else {
-			Write-Host "[-] No event found..."
 		}
 	}
 	
