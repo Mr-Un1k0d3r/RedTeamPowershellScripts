@@ -1,5 +1,5 @@
 function Search-EventForUser {
-	# Charles F. Hamilton - Mandiant 2016
+	# Mr.Un1k0d3r - RingZer0 Team 2016
 	# Search for a user through the events
 	# Todo :
 	# 		Add an option to fetch all the DCs
