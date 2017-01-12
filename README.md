@@ -4,6 +4,7 @@
 Search-EventForUser.ps1: Powershell script that search through the Windows event logs for specific user(s)
 Remote-WmiExecute.ps1: Execute command remotely using WMI
 Take-Screenshot.ps1: Take a screenshot (PNG)
+Get-BrowserHomepage.ps1: Get browser homepage
 ```
 
 # Search-EventForUser.ps1 Usage
@@ -28,6 +29,11 @@ module-import .\Remote-WmiExecute.ps1; Remote-WmiExecute -ComputerName victim01 
 # Take-Screenshot.ps1 Usage
 ```
 module-import .\Take-Screenshot.ps1; Take-Screenshot -Path C:\test.png
+```
+
+# Get-BrowserHomepage.ps1 Usage
+```
+module-import .\Get-BrowserHomepage.ps1; Get-BrowserHomepage
 ```
 
 # Todo
