@@ -1,5 +1,5 @@
 function Take-Screenshot {
-	# Charles F. Hamilton - Mandiant 2016
+	# Mr.Un1k0d3r - RingZer0 Team 2016
 	# Screen capture using powershell
 	# Output file is a png
 	
