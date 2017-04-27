@@ -11,17 +11,17 @@ function Search-FullNameToSamAccount {
 	)
   
 	BEGIN {
-		Write-Host "Searching for $($Filter)"
+		Write-Host "[*] Searching for $($Filter)"
 	}
 	
 	PROCESS {
         $Users = Get-ADUser -Filter{displayName -like $Filter -and Enabled -eq $True} -Properties SamAccountName, displayName
-    		ForEach($user in $Users) {
-			Write-Host "Found: $($user.displayName) -> $($user.SamAccountName)"
-        	}
+		ForEach($user in $Users) {
+			Write-Host "[+] Found: $($user.displayName) -> $($user.SamAccountName)"
+		}
 	}
 	
 	END {
-		Write-Host "[+] Process completed..."
+		Write-Host "[*] Process completed..."
 	}
 }
