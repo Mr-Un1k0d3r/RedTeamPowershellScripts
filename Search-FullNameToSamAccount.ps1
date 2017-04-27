@@ -1,9 +1,7 @@
-Import-Module ActiveDirectory
-
 function Search-FullNameToSamAccount {
 	# Mr.Un1k0d3r - RingZer0 Team 2016
 	# Get SamAccountName using Full name search
-	# Need ActiveDirectory module
+	# dependencies ActiveDirectory module
 	
 	param(
 		[Parameter(Mandatory=$True, ValueFromPipeline=$true)]
@@ -11,6 +9,12 @@ function Search-FullNameToSamAccount {
 	)
   
 	BEGIN {
+		$module = Get-Module -List ActiveDirectoryA
+		if($module) {
+			Import-Module ActiveDirectory
+		} else {
+			throw "[-] ERROR: ActiveDirectory cannot be imported. Aborting..."
+		}
 		Write-Host "[*] Searching for $($Filter)"
 	}
 	
