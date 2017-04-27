@@ -5,6 +5,7 @@ Search-EventForUser.ps1: Powershell script that search through the Windows event
 Remote-WmiExecute.ps1: Execute command remotely using WMI
 Take-Screenshot.ps1: Take a screenshot (PNG)
 Get-BrowserHomepage.ps1: Get browser homepage
+Search-FullNameToSamAccount.ps1: Full name to SamAccountName
 ```
 
 # Search-EventForUser.ps1 Usage
@@ -34,6 +35,10 @@ module-import .\Take-Screenshot.ps1; Take-Screenshot -Path C:\test.png
 # Get-BrowserHomepage.ps1 Usage
 ```
 module-import .\Get-BrowserHomepage.ps1; Get-BrowserHomepage
+```
+# Search-FullNameToSamAccount.ps1 Usage
+```
+module-import .\Search-FullNameToSamAccount.ps1; FullNameToSamAccount -Filter *god*
 ```
 
 # Todo
