@@ -38,7 +38,7 @@ module-import .\Get-BrowserHomepage.ps1; Get-BrowserHomepage
 ```
 # Search-FullNameToSamAccount.ps1 Usage
 ```
-module-import .\Search-FullNameToSamAccount.ps1; FullNameToSamAccount -Filter *god*
+module-import .\Search-FullNameToSamAccount.ps1; Search-FullNameToSamAccount -Filter *god*
 ```
 
 # Todo
