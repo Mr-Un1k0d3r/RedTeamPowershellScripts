@@ -15,9 +15,9 @@ function Search-FullNameToSamAccount {
 	}
 	
 	PROCESS {
-        $Users = Get-ADUser -Filter{displayName -like $Filter -and Enabled -eq $True} -Properties SamAccountName
+        $Users = Get-ADUser -Filter{displayName -like $Filter -and Enabled -eq $True} -Properties SamAccountName, displayName
     		ForEach($user in $Users) {
-			Write-Host $user.SamAccountName
+			Write-Host "Found: $($user.displayName) -> $($user.SamAccountName)"
         	}
 	}
 	
