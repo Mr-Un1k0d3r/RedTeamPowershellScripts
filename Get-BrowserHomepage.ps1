@@ -2,7 +2,7 @@ function Get-BrowserHomepage {
 	# Mr.Un1k0d3r - RingZer0 Team 2016
 	# Get Browser Homepage
 
-  BEGIN {
+  	BEGIN {
 
 	}
 	
