@@ -20,11 +20,16 @@ function Search-EventForUser {
 	}
 	
 	PROCESS {
+		$dcs = @{};
 		if($FindDC) {
 			Write-Output "[+] Enumrating all the DCs"
-			# Todo
+			ForEach($dc in [DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain().DomainControllers) {
+				Write-Output "[+] DC found: $($dc.Name)"
+				$dcs.Add($dc.Name)
+			}
 		}
 	
+		
 		ForEach($item in $User) {
 			Write-Output "[+] Parsing Log looking for $($item)"
 			$xmlFilter = "<QueryList><Query Id=""0"" Path=""Security""><Select Path=""Security"">*[System[(EventID=4624)] and EventData[Data[@Name=""TargetUserName""]=""$($item)""]]</Select></Query></QueryList>";
