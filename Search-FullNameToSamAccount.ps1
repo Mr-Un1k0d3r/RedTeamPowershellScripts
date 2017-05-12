@@ -15,17 +15,17 @@ function Search-FullNameToSamAccount {
 		} else {
 			throw "[-] ERROR: ActiveDirectory cannot be imported. Aborting..."
 		}
-		Write-Host "[*] Searching for $($Filter)"
+		Write-Output "[*] Searching for $($Filter)"
 	}
 	
 	PROCESS {
         	$Users = Get-ADUser -Filter{displayName -like $Filter -and Enabled -eq $True} -Properties SamAccountName, displayName
 		ForEach($user in $Users) {
-			Write-Host "[+] Found: $($user.displayName) -> $($user.SamAccountName)"
+			Write-Output "[+] Found: $($user.displayName) -> $($user.SamAccountName)"
 		}
 	}
 	
 	END {
-		Write-Host "[*] Process completed..."
+		Write-Output "[*] Process completed..."
 	}
 }
