@@ -10,14 +10,16 @@ Search-FullNameToSamAccount.ps1: Full name to SamAccountName
 
 # Search-EventForUser.ps1 Usage
 ```
-module-import .\Search-EventForUser.ps1; Search-EventForUser -User "MrUn1k0d3r"
+module-import .\Search-EventForUser.ps1; Search-EventForUser -UserName "MrUn1k0d3r"
 
 module-import .\Search-EventForUser.ps1; "MrUn1k0d3r" | Search-EventForUser
 
-module-import .\Search-EventForUser.ps1; Search-EventForUser -User MrUn1k0d3r -ComputerName DC01
+module-import .\Search-EventForUser.ps1; Search-EventForUser -UserName MrUn1k0d3r -ComputerName DC01
+
+module-import .\Search-EventForUser.ps1; Search-EventForUser -UserName MrUn1k0d3r -FindDC true
 
 module-import .\Search-EventForUser.ps1; $ips = @('DC01', 'DC02'); foreach($ip in $ips) {
-  Search-EventForUser -User MrUn1k0d3r -ComputerName $ip 
+  Search-EventForUser -UserName MrUn1k0d3r -ComputerName $ip 
 }
 ```
 The -User parameter support single user list of users from pipeline
@@ -44,8 +46,6 @@ module-import .\Search-FullNameToSamAccount.ps1; Search-FullNameToSamAccount -Fi
 # Todo
 
 1. Search-EventForUser.ps1:
-  * Add an option to fetch all the DCs
-  * Search for multiple users at the same time
   * Parse the output and make it more readable
 2. Remote-WmiExecute.ps1:
   * Improve errors handling (Access Denied etc...)
