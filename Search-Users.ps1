@@ -16,32 +16,32 @@ function Search-EventForUser {
 	)
 	
 	BEGIN {
-		Write-Host "[+] Parsing Event Log on $($ComputerName)"
+		Write-Output "[+] Parsing Event Log on $($ComputerName)"
 	}
 	
 	PROCESS {
 		if($FindDC) {
-			Write-Host "[+] Enumrating all the DCs"
+			Write-Output "[+] Enumrating all the DCs"
 			# Todo
 		}
 	
 		ForEach($item in $User) {
-			Write-Host "[+] Parsing Log looking for $($item)"
+			Write-Output "[+] Parsing Log looking for $($item)"
 			$xmlFilter = "<QueryList><Query Id=""0"" Path=""Security""><Select Path=""Security"">*[System[(EventID=4624)] and EventData[Data[@Name=""TargetUserName""]=""$($item)""]]</Select></Query></QueryList>";
 			$data = Get-WinEvent -FilterXml $xmlFilter -ComputerName $ComputerName -ErrorAction SilentlyContinue | Select Message;
 			if($data) {
 				ForEach($entry in $data) {
-					Write-Host "[+] Event found" 
-					Write-Host $entry.Message
+					Write-Output "[+] Event found" 
+					Write-Output $entry.Message
 				}
 			} else {
-				Write-Host "[-] No event found..."
+				Write-Output "[-] No event found..."
 			}
 		}
 	}
 	
 	END {
-		Write-Host "[+] Process completed..."
+		Write-Output "[+] Process completed..."
 	}
 }
 
@@ -62,17 +62,17 @@ function Search-FullNameToSamAccount {
 		} else {
 			throw "[-] ERROR: ActiveDirectory cannot be imported. Aborting..."
 		}
-		Write-Host "[*] Searching for $($Filter)"
+		Write-Output "[*] Searching for $($Filter)"
 	}
 	
 	PROCESS {
         	$Users = Get-ADUser -Filter{displayName -like $Filter -and Enabled -eq $True} -Properties SamAccountName, displayName
 		ForEach($user in $Users) {
-			Write-Host "[+] Found: $($user.displayName) -> $($user.SamAccountName)"
+			Write-Output "[+] Found: $($user.displayName) -> $($user.SamAccountName)"
 		}
 	}
 	
 	END {
-		Write-Host "[*] Process completed..."
+		Write-Output "[*] Process completed..."
 	}
 }
