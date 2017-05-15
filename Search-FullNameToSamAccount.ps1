@@ -25,7 +25,7 @@ function Search-FullNameToSamAccount {
 				Write-Output "[+] Found: $($user.displayName) -> $($user.SamAccountName)"
 			}
 		} else {
-			Write-Ouput "[-] Search filter returned nothing..."
+			Write-Output "[-] Search filter returned nothing..."
 		}
 	}
 	
