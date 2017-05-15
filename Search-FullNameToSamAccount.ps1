@@ -20,8 +20,12 @@ function Search-FullNameToSamAccount {
 	
 	PROCESS {
         	$Users = Get-ADUser -Filter{displayName -like $Filter -and Enabled -eq $True} -Properties SamAccountName, displayName
-		ForEach($user in $Users) {
-			Write-Output "[+] Found: $($user.displayName) -> $($user.SamAccountName)"
+		if($Users) {
+			ForEach($user in $Users) {
+				Write-Output "[+] Found: $($user.displayName) -> $($user.SamAccountName)"
+			}
+		} else {
+			Write-Ouput "[-] Search filter returned nothing..."
 		}
 	}
 	
