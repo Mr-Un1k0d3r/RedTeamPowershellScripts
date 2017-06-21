@@ -8,7 +8,7 @@ function Get-IEBookmarks {
 	}
 	
 	PROCESS {
-    		Get-ChildItem -Recurse $path -File | ForEach {
+    		Get-ChildItem -Recurse $path -Include "*.url" | ForEach {
 				$data = Get-Content $_.fullname | Select-String -Pattern URL
 				Write-Output $data
 			}
