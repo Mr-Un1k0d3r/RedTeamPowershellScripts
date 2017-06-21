@@ -6,6 +6,7 @@ Remote-WmiExecute.ps1: Execute command remotely using WMI
 Take-Screenshot.ps1: Take a screenshot (PNG)
 Get-BrowserHomepage.ps1: Get browser homepage
 Search-FullNameToSamAccount.ps1: Full name to SamAccountName
+Search-users.ps1: Search-FullNameToSamAccount and Search-EventForUser merged together
 Get-IEBookmarks.ps1: List all Internet Explorer bookmarks URLs
 ```
 
