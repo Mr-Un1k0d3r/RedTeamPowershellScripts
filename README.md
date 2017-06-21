@@ -6,6 +6,7 @@ Remote-WmiExecute.ps1: Execute command remotely using WMI
 Take-Screenshot.ps1: Take a screenshot (PNG)
 Get-BrowserHomepage.ps1: Get browser homepage
 Search-FullNameToSamAccount.ps1: Full name to SamAccountName
+Get-IEBookmarks.ps1: List all Internet Explorer bookmarks URLs
 ```
 
 # Search-EventForUser.ps1 Usage
@@ -41,6 +42,11 @@ module-import .\Get-BrowserHomepage.ps1; Get-BrowserHomepage
 # Search-FullNameToSamAccount.ps1 Usage
 ```
 module-import .\Search-FullNameToSamAccount.ps1; Search-FullNameToSamAccount -Filter *god*
+```
+
+# Get-IEBookmarks.ps1 Usage
+```
+module-import .\Get-IEBookmarks.ps1; Get-IEBookmarks
 ```
 
 # Todo
