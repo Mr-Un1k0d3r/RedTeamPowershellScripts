@@ -4,7 +4,7 @@ function Search-EventForUser {
 	# Parse the output and make it more readable
 	
 	param(
-	[Parameter(Mandatory=$True, ValueFromPipeline=$true)]
+	[Parameter(Mandatory=$True, ValueFromPipeline=$True)]
 	[string]$UserName,
 	[Parameter(Mandatory=$False)]
 	[string]$ComputerName = (Get-Item env:COMPUTERNAME).Value,
@@ -55,7 +55,7 @@ function Search-FullNameToSamAccount {
 	# Mr.Un1k0d3r - RingZer0 Team 2017
 	# Get SamAccountName using displayname property search
 	param(
-		[Parameter(Mandatory=$True, ValueFromPipeline=$true)]
+		[Parameter(Mandatory=$True, ValueFromPipeline=$True)]
 		[string]$Filter
 	)
 
