@@ -6,18 +6,36 @@ function Remote-WmiExecute {
 	[Parameter(Mandatory=$True)]
 	[string]$Payload,
 	[Parameter(Mandatory=$True)]
-	[string]$ComputerName
+	[string]$ComputerName,
+	[Parameter(Mandatory=$False)]
+	[string]$Username,
+	[Parameter(Mandatory=$False)]
+	[string]$Password	
 	)
 	
 	BEGIN {
 		Write-Host "[+] Executing payload on $($ComputerName)"
+		if($Username -ne "") {
+			$SecurePassword = ConvertTo-SecureString $Password -AsPlainText -Force
+			$Creds = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $Username, $SecurePassword
+		}
 	}
 	
 	PROCESS {
-		$process = Invoke-WmiMethod -ComputerName $ComputerName -Class Win32_Process -Name Create -ArgumentList $Payload
-		Register-WmiEvent -ComputerName $ComputerName -Query "Select * from Win32_ProcessStopTrace Where ProcessID=$($process.ProcessId)" -Action {
-			$state = $event.SourceEventArgs.NewEvent;
-			Write-Host "`n[+] Remote process status:`nPID: $($state.ProcessId)`nState: $($state.State)`nStatus: $($state.Status)" 
+		if($Creds) {
+			Write-Output "[*] Remotely authenticated as $($Username)"
+			$process = Invoke-WmiMethod -ComputerName $ComputerName -Class Win32_Process -Name Create -ArgumentList $Payload -Impersonation 3 -EnableAllPrivileges -Credential $Creds
+			Register-WmiEvent -ComputerName $ComputerName -Query "Select * from Win32_ProcessStopTrace Where ProcessID=$($process.ProcessId)" -Credential $Creds -Action {
+				$state = $event.SourceEventArgs.NewEvent;
+				Write-Host "`n[+] Remote process status:`nPID: $($state.ProcessId)`nState: $($state.State)`nStatus: $($state.Status)" 
+			}
+		} else {
+			$process = Invoke-WmiMethod -ComputerName $ComputerName -Class Win32_Process -Name Create -ArgumentList $Payload
+			Register-WmiEvent -ComputerName $ComputerName -Query "Select * from Win32_ProcessStopTrace Where ProcessID=$($process.ProcessId)" -Action {
+				$state = $event.SourceEventArgs.NewEvent;
+				Write-Host "`n[+] Remote process status:`nPID: $($state.ProcessId)`nState: $($state.State)`nStatus: $($state.Status)" 
+			}
+
 		}
 	}
 	
