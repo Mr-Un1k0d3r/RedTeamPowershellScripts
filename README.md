@@ -61,11 +61,9 @@ module-import .\Get-IEBookmarks.ps1; Get-IEBookmarks
 
 # Todo
 
-1. Search-EventForUser.ps1:
-  * Parse the output and make it more readable
-2. Remote-WmiExecute.ps1:
+1. Remote-WmiExecute.ps1:
   * Improve errors handling (Access Denied etc...)
-3. Take-Screenshot.ps1:
+2. Take-Screenshot.ps1:
   * Handle multiple screens
 
 # Credit
