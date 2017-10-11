@@ -36,8 +36,15 @@ function Search-EventForUser {
 				$data = Get-WinEvent -FilterXml $xmlFilter -ComputerName $dc -ErrorAction SilentlyContinue | Select Message;
 				if($data) {
 					ForEach($entry in $data) {
-						Write-Output "[+] Event found" 
-						Write-Output $entry.Message
+						Write-Output "`n[+] Event found" 
+						ForEach($Line in $entry.Message.Split("`n")) {
+							$Line | Select-String -Pattern "Account Name:"
+							$Line | Select-String -Pattern "Account Domain:"
+							$Line | Select-String -Pattern "Security ID:"
+							$Line | Select-String -Pattern "Source Network Address:"
+							$Line | Select-String -Pattern "Workstation Name:"
+							$Line | Select-String -Pattern "Process Name:"
+						}
 					}
 				} else {
 					Write-Output "[-] No event found on $($dc)..."
