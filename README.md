@@ -2,11 +2,12 @@
 
 ```
 Search-EventForUser.ps1: Powershell script that search through the Windows event logs for specific user(s)
+Search-FullNameToSamAccount.ps1: Full name to SamAccountName
+Search-UserPassword.ps1: Search LDAP for userPassword field
+Search-users.ps1: Search-FullNameToSamAccount, Search-EventForUser and Search-UserPassword merged together
 Remote-WmiExecute.ps1: Execute command remotely using WMI
 Take-Screenshot.ps1: Take a screenshot (PNG)
 Get-BrowserHomepage.ps1: Get browser homepage
-Search-FullNameToSamAccount.ps1: Full name to SamAccountName
-Search-users.ps1: Search-FullNameToSamAccount and Search-EventForUser merged together
 Get-IEBookmarks.ps1: List all Internet Explorer bookmarks URLs
 ```
 
@@ -20,11 +21,23 @@ module-import .\Search-EventForUser.ps1; Search-EventForUser -UserName MrUn1k0d3
 
 module-import .\Search-EventForUser.ps1; Search-EventForUser -UserName MrUn1k0d3r -FindDC true
 
-module-import .\Search-EventForUser.ps1; $ips = @('DC01', 'DC02'); foreach($ip in $ips) {
-  Search-EventForUser -UserName MrUn1k0d3r -ComputerName $ip 
-}
+module-import .\Search-EventForUser.ps1; "god", "mom" | Search-EventForUser -FindDC true
 ```
-The -User parameter support single user list of users from pipeline
+The -User parameter support single user or a list of users from pipeline
+
+# Search-FullNameToSamAccount.ps1 Usage
+```
+module-import .\Search-FullNameToSamAccount.ps1; Search-FullNameToSamAccount -Filter *god*
+
+module-import .\Search-FullNameToSamAccount.ps1; "god", "mom" | Search-FullNameToSamAccount
+```
+
+# Search-UserPassword.ps1 Usage
+```
+module-import .\Search-UserPassword.ps1; Search-UserPassword -Username *god*
+
+module-import .\Search-UserPassword.ps1; "god", "mom" | Search-UserPassword
+```
 
 # Remote-WmiExecute.ps1 Usage
 ```
@@ -39,10 +52,6 @@ module-import .\Take-Screenshot.ps1; Take-Screenshot -Path C:\test.png
 # Get-BrowserHomepage.ps1 Usage
 ```
 module-import .\Get-BrowserHomepage.ps1; Get-BrowserHomepage
-```
-# Search-FullNameToSamAccount.ps1 Usage
-```
-module-import .\Search-FullNameToSamAccount.ps1; Search-FullNameToSamAccount -Filter *god*
 ```
 
 # Get-IEBookmarks.ps1 Usage
