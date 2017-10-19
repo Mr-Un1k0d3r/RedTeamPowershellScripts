@@ -35,7 +35,7 @@ function Search-EventForUser {
 		}
 		
 		ForEach($dc in $dcs) {
-			ForEach($item in $UserName) {
+			ForEach($item in $TargetUser) {
 				Write-Output "[+] Parsing $($dc) Logs looking for $($item)"
 				if($Creds) {
 					Write-Output "[*] Remotely authenticated as $($Username)"
