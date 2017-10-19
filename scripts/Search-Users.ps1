@@ -1,19 +1,25 @@
 function Search-EventForUser {
 	# Mr.Un1k0d3r - RingZer0 Team 2016
 	# Search for a user through the events
-	# Parse the output and make it more readable
 	
 	param(
-	[Parameter(Mandatory=$True, ValueFromPipeline=$True)]
-	[string]$UserName,
+	[Parameter(Mandatory=$True, ValueFromPipeline=$true)]
+	[string]$TargetUser,
 	[Parameter(Mandatory=$False)]
 	[string]$ComputerName = (Get-Item env:COMPUTERNAME).Value,
 	[Parameter(Mandatory=$False)]
-	[switch]$FindDC = $False
+	[switch]$FindDC = $False,
+	[Parameter(Mandatory=$False)]
+	[string]$Username,
+	[Parameter(Mandatory=$False)]
+	[string]$Password
 	)
 	
 	BEGIN {
-	
+		if($Username -ne "") {
+			$SecurePassword = ConvertTo-SecureString $Password -AsPlainText -Force
+			$Creds = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $Username, $SecurePassword
+		}	
 	}
 	
 	PROCESS {
@@ -31,9 +37,14 @@ function Search-EventForUser {
 		ForEach($dc in $dcs) {
 			ForEach($item in $UserName) {
 				Write-Output "[+] Parsing $($dc) Logs looking for $($item)"
-				
-				$xmlFilter = "<QueryList><Query Id=""0"" Path=""Security""><Select Path=""Security"">*[System[(EventID=4624)] and EventData[Data[@Name=""TargetUserName""]=""$($item)""]]</Select></Query></QueryList>";
-				$data = Get-WinEvent -FilterXml $xmlFilter -ComputerName $dc -ErrorAction SilentlyContinue | Select Message;
+				if($Creds) {
+					Write-Output "[*] Remotely authenticated as $($Username)"
+					$xmlFilter = "<QueryList><Query Id=""0"" Path=""Security""><Select Path=""Security"">*[System[(EventID=4624)] and EventData[Data[@Name=""TargetUserName""]=""$($item)""]]</Select></Query></QueryList>";
+					$data = Get-WinEvent -FilterXml $xmlFilter -ComputerName $dc -ErrorAction SilentlyContinue -Credential $Creds | Select Message;
+				} else {
+					$xmlFilter = "<QueryList><Query Id=""0"" Path=""Security""><Select Path=""Security"">*[System[(EventID=4624)] and EventData[Data[@Name=""TargetUserName""]=""$($item)""]]</Select></Query></QueryList>";
+					$data = Get-WinEvent -FilterXml $xmlFilter -ComputerName $dc -ErrorAction SilentlyContinue | Select Message;				
+				}
 				if($data) {
 					ForEach($entry in $data) {
 						Write-Output "`n[+] Event found" 
