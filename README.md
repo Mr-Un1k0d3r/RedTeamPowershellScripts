@@ -13,15 +13,17 @@ Get-IEBookmarks.ps1: List all Internet Explorer bookmarks URLs
 
 # Search-EventForUser.ps1 Usage
 ```
-module-import .\Search-EventForUser.ps1; Search-EventForUser -UserName "MrUn1k0d3r"
+module-import .\Search-EventForUser.ps1; Search-EventForUser -TargetUser "MrUn1k0d3r"
 
 module-import .\Search-EventForUser.ps1; "MrUn1k0d3r" | Search-EventForUser
 
-module-import .\Search-EventForUser.ps1; Search-EventForUser -UserName MrUn1k0d3r -ComputerName DC01
+module-import .\Search-EventForUser.ps1; Search-EventForUser -TargetUser MrUn1k0d3r -ComputerName DC01
 
-module-import .\Search-EventForUser.ps1; Search-EventForUser -UserName MrUn1k0d3r -FindDC true
+module-import .\Search-EventForUser.ps1; Search-EventForUser -TargetUser MrUn1k0d3r -FindDC true
 
 module-import .\Search-EventForUser.ps1; "god", "mom" | Search-EventForUser -FindDC true
+
+module-import .\Search-EventForUser.ps1; "god", "mom" | Search-EventForUser -FindDC true -Username DOMAIN\admin -Password "123456"
 ```
 The -User parameter support single user or a list of users from pipeline
 
