@@ -1,7 +1,6 @@
 function Search-EventForUser {
 	# Mr.Un1k0d3r - RingZer0 Team 2016
 	# Search for a user through the events
-	# Parse the output and make it more readable
 	
 	param(
 	[Parameter(Mandatory=$True, ValueFromPipeline=$true)]
