@@ -76,6 +76,8 @@ function Search-FullNameToSamAccount {
 	param(
 		[Parameter(Mandatory=$True, ValueFromPipeline=$True)]
 		[string]$Filter
+		[Parameter(Mandatory=$False)]
+		[switch]$SamOnly = $False,
 	)
 
 	BEGIN {
@@ -96,11 +98,18 @@ function Search-FullNameToSamAccount {
 
 			ForEach($Item in $DirSearch.FindAll()) {
 				$Data = $Item.Properties
-				$Output = New-Object -TypeName PSObject -Property @{
-					Name = $Data.givenname[0]
-					SamAccount = $Data.samaccountname[0]
-					Department = $Data.department[0]
-					Description = $Data.description[0]
+				If($SamOnly) {
+					$Output = New-Object -TypeName PSObject -Property @{
+						Name = $Data.givenname[0]
+						SamAccount = $Data.samaccountname[0]
+					}	
+				} Else {
+					$Output = New-Object -TypeName PSObject -Property @{
+						Name = $Data.givenname[0]
+						SamAccount = $Data.samaccountname[0]
+						Department = $Data.department[0]
+						Description = $Data.description[0]
+					}				
 				}
 
 				$Users += $Output
