@@ -75,9 +75,9 @@ function Search-FullNameToSamAccount {
 	
 	param(
 		[Parameter(Mandatory=$True, ValueFromPipeline=$True)]
-		[string]$Filter
+		[string]$Filter,
 		[Parameter(Mandatory=$False)]
-		[switch]$SamOnly = $False,
+		[switch]$SamOnly = $False
 	)
 
 	BEGIN {
