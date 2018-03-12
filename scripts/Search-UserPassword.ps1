@@ -59,3 +59,23 @@ function Search-UserPassword {
 		Write-Output "[+] Process completed..."
 	}
 }
+
+function Search-AllUsersPassword {
+	
+	param(
+	[Parameter(Mandatory=$True, ValueFromPipeline=$True)]
+	[string]$UserName
+	)
+	
+	BEGIN {
+		Write-Output "[*] Searching all users for userPassword property"
+	}
+	
+	PROCESS {
+		Ldap-GetProperty -Filter "(&(objectCategory=User))" -Property "userpassword" | Format-Table -Wrap -AutoSize
+	}
+	
+	END {
+		Write-Output "[+] Process completed..."
+	}
+}
