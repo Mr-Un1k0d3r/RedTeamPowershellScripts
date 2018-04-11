@@ -9,6 +9,7 @@ Remote-WmiExecute.ps1: Execute command remotely using WMI
 Take-Screenshot.ps1: Take a screenshot (PNG)
 Get-BrowserHomepage.ps1: Get browser homepage
 Get-IEBookmarks.ps1: List all Internet Explorer bookmarks URLs
+Invoke-ADPasswordBruteForce.ps1: Test users password
 ```
 
 # Search-EventForUser.ps1 Usage
@@ -59,6 +60,15 @@ module-import .\Get-BrowserHomepage.ps1; Get-BrowserHomepage
 # Get-IEBookmarks.ps1 Usage
 ```
 module-import .\Get-IEBookmarks.ps1; Get-IEBookmarks
+```
+
+# Invoke-ADPasswordBruteForce.ps1 Usage
+```
+module-import .\Invoke-ADPasswordBruteForce; Invoke-ADPasswordBruteForce -Username "mr.un1k0d3r" -Password "password"
+
+module-import .\Invoke-ADPasswordBruteForce; "neo","morpheus" | Invoke-ADPasswordBruteForce -Password "password"
+
+module-import .\Invoke-ADPasswordBruteForce; "neo","morpheus" | Invoke-ADPasswordBruteForce -Password "password" -Domain MATRIX
 ```
 
 # Todo
