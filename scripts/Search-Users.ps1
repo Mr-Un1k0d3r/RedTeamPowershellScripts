@@ -25,7 +25,7 @@ function Search-EventForUser {
 	PROCESS {
 		[System.Collections.ArrayList]$dcs = @() 
 		if($FindDC) {
-			Write-Output "[+] Enumrating all the DCs"
+			Write-Output "[+] Enumerating all the DCs"
 			ForEach($dc in [DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain().DomainControllers) {
 				Write-Output "[+] DC found: $($dc.Name)"
 				$dcs.Add($dc.Name) | Out-Null
