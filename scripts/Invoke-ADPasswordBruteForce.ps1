@@ -9,7 +9,7 @@ Function Invoke-ADPasswordBruteForce {
 	)
 	
 	BEGIN {
-		Write-Output "[+] bruteforcing users in the ""$($Domain)"" domain using the password ""$($Password)"""
+		Write-Output "[+] bruteforcing users against the ""$($Domain)"" domain using the password ""$($Password)"""
 	}
 	
 	PROCESS {
