@@ -2,10 +2,10 @@ Function Invoke-ADPasswordBruteForce {
 	param(
 		[Parameter(Mandatory=$True, ValueFromPipeline=$true)]
 		[string]$Username,
-		[Parameter(Mandatory=$False)]
-		[string]$Domain = (Get-Item env:USERDOMAIN).Value,
 		[Parameter(Mandatory=$True)]
-		[string]$Password
+		[string]$Password,
+		[Parameter(Mandatory=$False)]
+		[string]$Domain = (Get-Item env:USERDOMAIN).Value
 	)
 	
 	BEGIN {
