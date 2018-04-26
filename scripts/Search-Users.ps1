@@ -125,12 +125,12 @@ function Search-FullNameToSamAccount {
 
 function Ldap-GetProperty {
 	param(
-	[Parameter(Mandatory=$True, ValueFromPipeline=$True)]
-	[string]$Filter,
-	[Parameter(Mandatory=$True)]
-	[string]$Property,
-	[Parameter(Mandatory=$False)]
-	[switch]$Verbose = $True
+		[Parameter(Mandatory=$True, ValueFromPipeline=$True)]
+		[string]$Filter,
+		[Parameter(Mandatory=$True)]
+		[string]$Property,
+		[Parameter(Mandatory=$False)]
+		[switch]$NoErrorReport = $False
 	)
 	
 	BEGIN {
@@ -149,32 +149,27 @@ function Ldap-GetProperty {
 		ForEach($Item in $DirSearch.FindAll()) {
 			$Data = $Item.Properties
 			Try {
-			$Element = New-Object -TypeName PSObject -Property @{
-				$Property = $Data.$Property[0]
-			}
+				$Element = New-Object -TypeName PSObject -Property @{
+					$Property = $Data.$Property[0]
+				}
 
-			$Output += $Element		
+				$Output += $Element		
 			} Catch {
-				if($Verbose) {
+				if(!$NoErrorReport) {
 					Write-Output "[-] Property not found"
 				}
 			}
 		}
 		return $Output
-	}
-	
+	}	
 }
 
 function Search-UserPassword {
 	
 	param(
-	[Parameter(Mandatory=$True, ValueFromPipeline=$True)]
-	[string]$UserName
+		[Parameter(Mandatory=$True, ValueFromPipeline=$True)]
+		[string]$UserName
 	)
-	
-	BEGIN {
-	
-	}
 	
 	PROCESS {
 		ForEach($User in $UserName) {
@@ -191,9 +186,9 @@ function Search-UserPassword {
 function Dump-UserEmail {
 	
 	PROCESS {
-		Ldap-GetProperty -Filter "(&(objectCategory=User))" -Property "mail" -Verbose False | Format-Table -Wrap -AutoSize
+		Ldap-GetProperty -Filter "(&(objectCategory=User))" -Property "mail" -NoErrorReport | Format-Table -Wrap -AutoSize
 	}
-	
+
 	END {
 		Write-Output "[+] Process completed..."
 	}
@@ -202,7 +197,7 @@ function Dump-UserEmail {
 function Dump-UserName {
 		
 	PROCESS {
-		Ldap-GetProperty -Filter "(&(objectCategory=User))" -Property "samaccountname" -Verbose False | Format-Table -Wrap -AutoSize
+		Ldap-GetProperty -Filter "(&(objectCategory=User))" -Property "samaccountname" -NoErrorReport | Format-Table -Wrap -AutoSize
 	}
 	
 	END {
