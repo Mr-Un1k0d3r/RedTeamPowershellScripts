@@ -1,7 +1,7 @@
+# Mr.Un1k0d3r RingZer0 Team
+
 function Search-EventForUser {
-	# Mr.Un1k0d3r - RingZer0 Team 2016
-	# Search for a user through the events
-	
+
 	param(
 	[Parameter(Mandatory=$True, ValueFromPipeline=$true)]
 	[string]$TargetUser,
@@ -70,9 +70,7 @@ function Search-EventForUser {
 }
 
 function Search-FullNameToSamAccount {
-	# Mr.Un1k0d3r - RingZer0 Team 2017
-	# Get SamAccountName using displayname property search
-	
+
 	param(
 		[Parameter(Mandatory=$True, ValueFromPipeline=$True)]
 		[string]$Filter,
@@ -158,7 +156,7 @@ function Ldap-GetProperty {
 			$Output += $Element		
 			} Catch {
 				if($ShowError) {
-				Write-Output "[-] Property not found"
+					Write-Output "[-] Property not found"
 				}
 			}
 		}
@@ -193,7 +191,7 @@ function Search-UserPassword {
 function Dump-UserEmail {
 	
 	PROCESS {
-		Ldap-GetProperty -Filter "(&(objectCategory=User))" -Property "mail" -ShowError $False | Format-Table -Wrap -AutoSize
+		Ldap-GetProperty -Filter "(&(objectCategory=User))" -Property "mail" -ShowError False | Format-Table -Wrap -AutoSize
 	}
 	
 	END {
@@ -204,7 +202,7 @@ function Dump-UserEmail {
 function Dump-UserName {
 		
 	PROCESS {
-		Ldap-GetProperty -Filter "(&(objectCategory=User))" -Property "samaccountname" -ShowError $False | Format-Table -Wrap -AutoSize
+		Ldap-GetProperty -Filter "(&(objectCategory=User))" -Property "samaccountname" -ShowError False | Format-Table -Wrap -AutoSize
 	}
 	
 	END {
