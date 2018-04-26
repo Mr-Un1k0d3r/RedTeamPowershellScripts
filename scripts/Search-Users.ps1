@@ -130,7 +130,9 @@ function Ldap-GetProperty {
 	[Parameter(Mandatory=$True, ValueFromPipeline=$True)]
 	[string]$Filter,
 	[Parameter(Mandatory=$True)]
-	[string]$Property
+	[string]$Property,
+	[Parameter(Mandatory=$False]
+	[switch]$ShowError = $True
 	)
 	
 	BEGIN {
@@ -155,7 +157,9 @@ function Ldap-GetProperty {
 
 			$Output += $Element		
 			} Catch {
+				if($ShowError) {
 				Write-Output "[-] Property not found"
+				}
 			}
 		}
 		return $Output
@@ -179,6 +183,28 @@ function Search-UserPassword {
 			Write-Output "[*] $($User)"
 			Ldap-GetProperty -Filter "(&(objectCategory=User)(samaccountname=*$($User)*))" -Property "userpassword" | Format-Table -Wrap -AutoSize
 		}
+	}
+	
+	END {
+		Write-Output "[+] Process completed..."
+	}
+}
+
+function Dump-UserEmail {
+	
+	PROCESS {
+		Ldap-GetProperty -Filter "(&(objectCategory=User))" -Property "mail" -ShowError $False | Format-Table -Wrap -AutoSize
+	}
+	
+	END {
+		Write-Output "[+] Process completed..."
+	}
+}
+
+function Dump-UserName {
+		
+	PROCESS {
+		Ldap-GetProperty -Filter "(&(objectCategory=User))" -Property "samaccountname" -ShowError $False | Format-Table -Wrap -AutoSize
 	}
 	
 	END {
