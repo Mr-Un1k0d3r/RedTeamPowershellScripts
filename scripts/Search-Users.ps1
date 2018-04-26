@@ -131,7 +131,7 @@ function Ldap-GetProperty {
 	[string]$Filter,
 	[Parameter(Mandatory=$True)]
 	[string]$Property,
-	[Parameter(Mandatory=$False]
+	[Parameter(Mandatory=$False)]
 	[switch]$ShowError = $True
 	)
 	
