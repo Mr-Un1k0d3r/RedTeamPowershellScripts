@@ -79,4 +79,4 @@ module-import .\Invoke-ADPasswordBruteForce; "neo","morpheus" | Invoke-ADPasswor
   * Handle multiple screens
 
 # Credit
-Charles F. Hamilton Aka Mr.Un1k0d3r RingZer0 Team
+Mr.Un1k0d3r RingZer0 Team
