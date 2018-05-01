@@ -148,17 +148,19 @@ function Ldap-GetProperty {
 		
 		ForEach($Item in $DirSearch.FindAll()) {
 			$Data = $Item.Properties
-			Try {
-				$Element = New-Object -TypeName PSObject -Property @{
-					$Property = $Data.$Property[0]
-				}
-
-				$Output += $Element		
-			} Catch {
-				if(!$NoErrorReport) {
-					Write-Output "[-] Property not found"
+			$Element = New-Object -TypeName PSObject
+			
+			ForEach($Attribute in $Property.Split(",")) {
+				Try {
+					$Element | Add-Member -MemberType NoteProperty -Name $Attribute -Value ([string]$Data.$Attribute)
+				} Catch {
+					$Element | Add-Member -MemberType NoteProperty -Name $Attribute -Value ""
+					if(!$NoErrorReport) {
+						Write-Output "[-] Property not found"
+					}
 				}
 			}
+			$Output += $Element | Select-Object $Property	
 		}
 		return $Output
 	}	
@@ -194,10 +196,29 @@ function Dump-UserEmail {
 	}
 }
 
-function Dump-UserName {
-		
+function Dump-Computers {
+	
 	PROCESS {
-		Ldap-GetProperty -Filter "(&(objectCategory=User))" -Property "samaccountname" -NoErrorReport | Format-Table -Wrap -AutoSize
+		Ldap-GetProperty -Filter "(&(objectCategory=Computer))" -Property "name" -NoErrorReport | Format-Table -Wrap -AutoSize
+	}
+
+	END {
+		Write-Output "[+] Process completed..."
+	}
+}
+
+function Dump-UserName {
+	param(
+		[Parameter(Mandatory=$False)]
+		[switch]$More = $False
+	)
+	
+	PROCESS {
+		if($More) {
+			Ldap-GetProperty -Filter "(&(objectCategory=User))" -Property "givenName,samaccountname,description,lastLogon,mail" -NoErrorReport | Format-Table -Wrap -AutoSize
+		} else {
+			Ldap-GetProperty -Filter "(&(objectCategory=User))" -Property "samaccountname" -NoErrorReport | Format-Table -Wrap -AutoSize
+		}
 	}
 	
 	END {
