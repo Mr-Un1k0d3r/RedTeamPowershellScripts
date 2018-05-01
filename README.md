@@ -4,12 +4,12 @@
 Search-EventForUser.ps1: Powershell script that search through the Windows event logs for specific user(s)
 Search-FullNameToSamAccount.ps1: Full name to SamAccountName
 Search-UserPassword.ps1: Search LDAP for userPassword field
-Search-users.ps1: Search-FullNameToSamAccount, Search-EventForUser and Search-UserPassword merged together
 Remote-WmiExecute.ps1: Execute command remotely using WMI
 Take-Screenshot.ps1: Take a screenshot (PNG)
 Get-BrowserHomepage.ps1: Get browser homepage
 Get-IEBookmarks.ps1: List all Internet Explorer bookmarks URLs
 Invoke-ADPasswordBruteForce.ps1: Test users password
+Utility.ps1: Contain several cmdlets
 ```
 
 # Search-EventForUser.ps1 Usage
