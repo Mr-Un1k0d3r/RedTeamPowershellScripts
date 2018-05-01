@@ -71,6 +71,18 @@ module-import .\Invoke-ADPasswordBruteForce; "neo","morpheus" | Invoke-ADPasswor
 module-import .\Invoke-ADPasswordBruteForce; "neo","morpheus" | Invoke-ADPasswordBruteForce -Password "password" -Domain MATRIX
 ```
 
+# Utility.ps1
+
+Contain de following cmdlets
+```
+Search-EventForUser
+Search-FullNameToSamAccount
+Ldap-GetProperty
+Search-UserPassword
+Dump-UserEmail
+Dump-Computers
+Dump-UserName
+```
 # Todo
 
 1. Remote-WmiExecute.ps1:
