@@ -10,6 +10,7 @@ Get-BrowserHomepage.ps1: Get browser homepage
 Get-IEBookmarks.ps1: List all Internet Explorer bookmarks URLs
 Invoke-ADPasswordBruteForce.ps1: Test users password
 Utility.ps1: Contain several cmdlets
+Remote-COMShellExec.ps1: Execute command remotely using COM object 
 ```
 
 # Search-EventForUser.ps1 Usage
@@ -71,6 +72,10 @@ module-import .\Invoke-ADPasswordBruteForce; "neo","morpheus" | Invoke-ADPasswor
 module-import .\Invoke-ADPasswordBruteForce; "neo","morpheus" | Invoke-ADPasswordBruteForce -Password "password" -Domain MATRIX
 ```
 
+# Remote-COMShellExec.ps1
+```
+module-import .\Remote-COMShellExec.sp1; Remote-COMShellExec -ComputerName 192.168.1.1 -Command "cmd.exe" -Argument "/c whoami"
+```
 # Utility.ps1
 
 Contain de following cmdlets
