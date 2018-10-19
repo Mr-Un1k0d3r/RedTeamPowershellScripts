@@ -15,8 +15,8 @@ function Remote-COMShellExec {
 	}
 	
 	PROCESS {
-		$com = [activator]::CreateInstance([type]::GetTypeFromCLSID("13709620-C279-11CE-A49E-444553540000", $ComputerName)) 
-		$com.ShellExecute($Command, $Argument, "", "", 0)
+		$Com = [activator]::CreateInstance([type]::GetTypeFromCLSID("13709620-C279-11CE-A49E-444553540000", $ComputerName)) 
+		$Com.ShellExecute($Command, $Argument, "", "", 0)
 	}
 	
 	END {
