@@ -11,6 +11,7 @@ Get-IEBookmarks.ps1: List all Internet Explorer bookmarks URLs
 Invoke-ADPasswordBruteForce.ps1: Test users password
 Utility.ps1: Contain several cmdlets
 Remote-COMShellExec.ps1: Execute command remotely using COM object 
+COM-Utility.ps1: Various COM objects for remote command execution
 ```
 
 # Search-EventForUser.ps1 Usage
@@ -88,6 +89,19 @@ Dump-UserEmail
 Dump-Computers
 Dump-UserName
 ```
+
+# COM-Utility.ps1
+
+Contain de following cmdlets
+```
+Invoke-COM-ScheduleService
+Invoke-COM-XMLHTTP
+Invoke-COM-ShellBrowserWindow
+Invoke-COM-WindowsScriptHost
+Invoke-COM-ProcessChain 
+Invoke-COM-ShellApplication
+```
+
 # Todo
 
 1. Remote-WmiExecute.ps1:
