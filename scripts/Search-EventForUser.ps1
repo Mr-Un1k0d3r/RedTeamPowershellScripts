@@ -1,7 +1,7 @@
+# Mr.Un1k0d3r RingZer0 Team
+
 function Search-EventForUser {
-	# Mr.Un1k0d3r - RingZer0 Team 2016
-	# Search for a user through the events
-	
+
 	param(
 	[Parameter(Mandatory=$True, ValueFromPipeline=$true)]
 	[string]$TargetUser,
@@ -9,6 +9,8 @@ function Search-EventForUser {
 	[string]$ComputerName = (Get-Item env:COMPUTERNAME).Value,
 	[Parameter(Mandatory=$False)]
 	[switch]$FindDC = $False,
+	[Parameter(Mandatory=$False)]
+	[switch]$FullMessage = $False,
 	[Parameter(Mandatory=$False)]
 	[string]$Username,
 	[Parameter(Mandatory=$False)]
@@ -25,7 +27,7 @@ function Search-EventForUser {
 	PROCESS {
 		[System.Collections.ArrayList]$dcs = @() 
 		if($FindDC) {
-			Write-Output "[+] Enumrating all the DCs"
+			Write-Output "[+] Enumerating all the DCs"
 			ForEach($dc in [DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain().DomainControllers) {
 				Write-Output "[+] DC found: $($dc.Name)"
 				$dcs.Add($dc.Name) | Out-Null
@@ -48,13 +50,18 @@ function Search-EventForUser {
 				if($data) {
 					ForEach($entry in $data) {
 						Write-Output "`n[+] Event found" 
-						ForEach($Line in $entry.Message.Split("`n")) {
-							$Line | Select-String -Pattern "Account Name:"
-							$Line | Select-String -Pattern "Account Domain:"
-							$Line | Select-String -Pattern "Security ID:"
-							$Line | Select-String -Pattern "Source Network Address:"
-							$Line | Select-String -Pattern "Workstation Name:"
-							$Line | Select-String -Pattern "Process Name:"
+						
+						If($FullMessage) {
+							Write-Output $entry.Message
+						} Else {
+							ForEach($Line in $entry.Message.Split("`n")) {
+								$Line | Select-String -Pattern "Account Name:"
+								$Line | Select-String -Pattern "Account Domain:"
+								$Line | Select-String -Pattern "Security ID:"
+								$Line | Select-String -Pattern "Source Network Address:"
+								$Line | Select-String -Pattern "Workstation Name:"
+								$Line | Select-String -Pattern "Process Name:"
+							}
 						}
 					}
 				} else {
