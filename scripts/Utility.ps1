@@ -217,14 +217,24 @@ function Dump-Computers {
 function Dump-UserName {
 	param(
 		[Parameter(Mandatory=$False)]
-		[switch]$More = $False
+		[switch]$More = $False,
+		[Parameter(Mandatory=$False, ValueFromPipeline=$true)]
+		[string]$TargetUser = ""
 	)
 	
 	PROCESS {
-		if($More) {
-			Ldap-GetProperty -Filter "(&(objectCategory=User))" -Property "givenName,samaccountname,description,lastLogon,mail" -NoErrorReport | Format-Table -Wrap -AutoSize
+		if($TargetUser -ne "") {
+			if($More) {
+				Ldap-GetProperty -Filter "(&(objectCategory=User)(samaccountname=*$($TargetUser)*))" -Property "givenName,samaccountname,description,lastLogon,mail" -NoErrorReport | Format-Table -Wrap -AutoSize
+			} else {
+				Ldap-GetProperty -Filter "(&(objectCategory=User)(samaccountname=*$($TargetUser)*))" -Property "samaccountname" -NoErrorReport | Format-Table -Wrap -AutoSize
+			}		
 		} else {
-			Ldap-GetProperty -Filter "(&(objectCategory=User))" -Property "samaccountname" -NoErrorReport | Format-Table -Wrap -AutoSize
+			if($More) {
+				Ldap-GetProperty -Filter "(&(objectCategory=User))" -Property "givenName,samaccountname,description,lastLogon,mail" -NoErrorReport | Format-Table -Wrap -AutoSize
+			} else {
+				Ldap-GetProperty -Filter "(&(objectCategory=User))" -Property "samaccountname" -NoErrorReport | Format-Table -Wrap -AutoSize
+			}		
 		}
 	}
 	
