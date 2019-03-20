@@ -133,11 +133,7 @@ function Search-FullNameToSamAccount {
 function Ldap-Query {
 	param(
 		[Parameter(Mandatory=$True, ValueFromPipeline=$True)]
-		[string]$Filter,
-		[Parameter(Mandatory=$True)]
-		[string]$Property,
-		[Parameter(Mandatory=$False)]
-		[switch]$NoErrorReport = $False
+		[string]$Filter
 	)
 	
 	BEGIN {
