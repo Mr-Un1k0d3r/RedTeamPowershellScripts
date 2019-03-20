@@ -130,6 +130,36 @@ function Search-FullNameToSamAccount {
 	}
 }
 
+function Ldap-Query {
+	param(
+		[Parameter(Mandatory=$True, ValueFromPipeline=$True)]
+		[string]$Filter,
+		[Parameter(Mandatory=$True)]
+		[string]$Property,
+		[Parameter(Mandatory=$False)]
+		[switch]$NoErrorReport = $False
+	)
+	
+	BEGIN {
+	
+	}
+	
+	PROCESS {
+		$Domain = New-Object System.DirectoryServices.DirectoryEntry
+
+		$DirSearch = New-Object System.DirectoryServices.DirectorySearcher
+		$DirSearch.SearchRoot = $Domain
+		$DirSearch.PageSize = 100
+		$DirSearch.Filter = $Filter
+		$DirSearch.SearchScope = "Subtree"	
+		
+		ForEach($Item in $DirSearch.FindAll()) {
+			$Data = $Item.Properties
+			Write-Output $Data
+		}
+	}	
+}
+
 function Ldap-GetProperty {
 	param(
 		[Parameter(Mandatory=$True, ValueFromPipeline=$True)]
