@@ -222,6 +222,32 @@ function DumpAll-UserInfo {
 	}	
 }
 
+function Dump-UserGroup {
+	param(
+		[Parameter(Mandatory=$True, ValueFromPipeline=$True)]
+		[string]$UserName	
+	)
+	
+	BEGIN {
+	
+	}
+	
+	PROCESS {
+		ForEach($User in $UserName) {
+			Write-Output "Dumping $($User) Groups"
+			Write-Output "-----------------------------------------------"
+			$Groups = (Ldap-GetProperty -Filter "(&(objectCategory=User)(samaccountname=$($User)))" -Property memberOf)
+			ForEach($Group in $Groups) {
+				Write-Output $Group
+			}
+		}
+	}
+	
+	END {
+		Write-Output "[+] Process completed..."
+	}	
+}
+
 function Search-UserPassword {
 	
 	param(
