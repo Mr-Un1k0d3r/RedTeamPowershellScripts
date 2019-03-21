@@ -236,8 +236,7 @@ function Dump-UserGroup {
 		ForEach($User in $UserName) {
 			Write-Output "Dumping $($User) Groups"
 			Write-Output "-----------------------------------------------"
-			$Groups = (Ldap-GetProperty -Filter "(&(objectCategory=User)(samaccountname=$($User)))" -Property memberOf)
-			Write-Output $Groups | fl
+			Ldap-GetProperty -Filter "(&(objectCategory=User)(samaccountname=$($User)))" -Property memberof | fl
 		}
 	}
 	
