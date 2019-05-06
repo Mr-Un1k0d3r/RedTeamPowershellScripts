@@ -193,7 +193,7 @@ function Ldap-GetProperty {
 					}
 				}
 			}
-			$Output += $Element | Select-Object $Property	
+			$Output += $Element 
 		}
 		return $Output
 	}	
@@ -297,13 +297,13 @@ function Dump-UserName {
 	PROCESS {
 		if($TargetUser -ne "") {
 			if($More) {
-				Ldap-GetProperty -Filter "(&(objectCategory=User)(samaccountname=*$($TargetUser)*))" -Property "givenName,samaccountname,description,lastLogon,mail" -NoErrorReport | Format-Table -Wrap -AutoSize
+				Ldap-GetProperty -Filter "(&(objectCategory=User)(samaccountname=*$($TargetUser)*))" -Property "givenname,samaccountname,description,lastlogon,mail" -NoErrorReport | Format-Table -Wrap -AutoSize
 			} else {
 				Ldap-GetProperty -Filter "(&(objectCategory=User)(samaccountname=*$($TargetUser)*))" -Property "samaccountname" -NoErrorReport | Format-Table -Wrap -AutoSize
 			}		
 		} else {
 			if($More) {
-				Ldap-GetProperty -Filter "(&(objectCategory=User))" -Property "givenName,samaccountname,description,lastLogon,mail" -NoErrorReport | Format-Table -Wrap -AutoSize
+				Ldap-GetProperty -Filter "(&(objectCategory=User))" -Property "givenname,samaccountname,description,lastlogon,mail" -NoErrorReport | Format-Table -Wrap -AutoSize
 			} else {
 				Ldap-GetProperty -Filter "(&(objectCategory=User))" -Property "samaccountname" -NoErrorReport | Format-Table -Wrap -AutoSize
 			}		
