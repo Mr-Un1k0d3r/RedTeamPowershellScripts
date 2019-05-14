@@ -10,8 +10,7 @@ Get-BrowserHomepage.ps1: Get browser homepage
 Get-IEBookmarks.ps1: List all Internet Explorer bookmarks URLs
 Invoke-ADPasswordBruteForce.ps1: Test users password
 Utility.ps1: Contain several cmdlets
-Remote-COMShellExec.ps1: Execute command remotely using COM object 
-COM-Utility.ps1: Various COM objects for remote command execution
+Run-As.ps1: Run a process as another user (credentials)
 ```
 
 # Search-EventForUser.ps1 Usage
@@ -75,7 +74,7 @@ module-import .\Invoke-ADPasswordBruteForce; "neo","morpheus" | Invoke-ADPasswor
 
 # Remote-COMShellExec.ps1
 ```
-module-import .\Remote-COMShellExec.sp1; Remote-COMShellExec -ComputerName 192.168.1.1 -Command "cmd.exe" -Argument "/c whoami"
+module-import .\Remote-COMShellExec.ps1; Remote-COMShellExec -ComputerName 192.168.1.1 -Command "cmd.exe" -Argument "/c whoami"
 ```
 # Utility.ps1
 
@@ -90,6 +89,12 @@ Dump-Computers
 Dump-UserName
 ```
 
+# Run-As.ps1
+
+```
+module-import .\Run-As.ps1; Run-As -Username RingZer0\Mr.Un1k0d3r -Password "IShouldNotLeakThisPasswordOnTheInternet" -Process "C:\Evil.exe"
+```
+
 # COM-Utility.ps1
 
 Contain de following cmdlets
@@ -101,6 +106,8 @@ Invoke-COM-WindowsScriptHost
 Invoke-COM-ProcessChain 
 Invoke-COM-ShellApplication
 ```
+
+
 
 # Todo
 
