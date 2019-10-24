@@ -6,6 +6,8 @@ function Search-FullNameToSamAccount {
 		[Parameter(Mandatory=$True, ValueFromPipeline=$True)]
 		[string]$Filter,
 		[Parameter(Mandatory=$False)]
+		[string]$Domain = "",
+		[Parameter(Mandatory=$False)]
 		[switch]$SamOnly = $False
 	)
 
@@ -17,8 +19,9 @@ function Search-FullNameToSamAccount {
 		ForEach($User in $Filter) {
 			Write-Output "[*] Searching for $($User)"
 			$Query = "(&(objectCategory=User)(displayName=*$($User)*))"
-			$Domain = New-Object System.DirectoryServices.DirectoryEntry
-
+			if($Domain -eq "") {
+				$Domain = New-Object System.DirectoryServices.DirectoryEntry
+			}
 			$DirSearch = New-Object System.DirectoryServices.DirectorySearcher
 			$DirSearch.SearchRoot = $Domain
 			$DirSearch.PageSize = 100
