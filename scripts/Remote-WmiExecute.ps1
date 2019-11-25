@@ -25,6 +25,7 @@ function Remote-WmiExecute {
 		if($Creds) {
 			Write-Output "[*] Remotely authenticated as $($Username)"
 			$process = Invoke-WmiMethod -ComputerName $ComputerName -Class Win32_Process -Name Create -ArgumentList $Payload -Impersonation 3 -EnableAllPrivileges -Credential $Creds
+			Write-Host $($process)
 			Try {
 				Register-WmiEvent -ComputerName $ComputerName -Query "Select * from Win32_ProcessStopTrace Where ProcessID=$($process.ProcessId)" -Credential $Creds -Action {
 					$state = $event.SourceEventArgs.NewEvent;
@@ -35,6 +36,7 @@ function Remote-WmiExecute {
 			}
 		} else {
 			$process = Invoke-WmiMethod -ComputerName $ComputerName -Class Win32_Process -Name Create -ArgumentList $Payload
+			Write-Host $($process)
 			Try {
 				Register-WmiEvent -ComputerName $ComputerName -Query "Select * from Win32_ProcessStopTrace Where ProcessID=$($process.ProcessId)" -Action {
 					$state = $event.SourceEventArgs.NewEvent;
