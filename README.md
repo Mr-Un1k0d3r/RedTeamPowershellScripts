@@ -11,6 +11,7 @@ Get-IEBookmarks.ps1: List all Internet Explorer bookmarks URLs
 Invoke-ADPasswordBruteForce.ps1: Test users password
 Utility.ps1: Contain several cmdlets
 Run-As.ps1: Run a process as another user (credentials)
+Get-ProcessList.ps1: List processes, owner and command line arguments
 ```
 
 # Search-EventForUser.ps1 Usage
@@ -107,7 +108,11 @@ Invoke-COM-ProcessChain
 Invoke-COM-ShellApplication
 ```
 
+# Get-ProcessList.ps1 Usage
 
+```
+module-import .\Get-ProcessList.ps1; Get-ProcessList
+```
 
 # Todo
 
