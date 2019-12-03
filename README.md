@@ -73,10 +73,6 @@ module-import .\Invoke-ADPasswordBruteForce; "neo","morpheus" | Invoke-ADPasswor
 module-import .\Invoke-ADPasswordBruteForce; "neo","morpheus" | Invoke-ADPasswordBruteForce -Password "password" -Domain MATRIX
 ```
 
-# Remote-COMShellExec.ps1
-```
-module-import .\Remote-COMShellExec.ps1; Remote-COMShellExec -ComputerName 192.168.1.1 -Command "cmd.exe" -Argument "/c whoami"
-```
 # Utility.ps1
 
 Contain de following cmdlets
