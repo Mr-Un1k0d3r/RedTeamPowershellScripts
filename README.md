@@ -12,6 +12,7 @@ Invoke-ADPasswordBruteForce.ps1: Test users password
 Utility.ps1: Contain several cmdlets
 Run-As.ps1: Run a process as another user (credentials)
 Get-ProcessList.ps1: List processes, owner and command line arguments
+Remote-RegisterProtocolHandler.ps1: Use protocol handler to run your command to bypass some detection
 ```
 
 # Search-EventForUser.ps1 Usage
@@ -110,12 +111,24 @@ Invoke-COM-ShellApplication
 module-import .\Get-ProcessList.ps1; Get-ProcessList
 ```
 
+# Remote-RegisterProtocolHandler.ps1 Usage
+
+This cmdlet create a protocol handler that will call your payload. The idea is to avoid detection since the command that will be execute will look like the following one:
+
+`explorer ms-browse://`
+
+Where `ms-browser` is the custom handler you registered and will execute your command
+
+```
+module-import .\Remote-RegisterProtocolHandler.ps1; Remote-RegisterProtocolHandler -ComputerName host -Payload "command to run"
+module-import .\Remote-RegisterProtocolHandler.ps1; Remote-RegisterProtocolHandler -ComputerName host -Payload "command to run" -Handler ms-handler-name 
+```
+
 # Todo
 
-1. Remote-WmiExecute.ps1:
-  * Improve errors handling (Access Denied etc...)
 2. Take-Screenshot.ps1:
   * Handle multiple screens
 
 # Credit
 Mr.Un1k0d3r RingZer0 Team
+Tazz0 RingZer0 Team
