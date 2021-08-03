@@ -79,6 +79,7 @@ module-import .\Invoke-ADPasswordBruteForce; "neo","morpheus" | Invoke-ADPasswor
 Contain de following cmdlets
 ```
 Search-EventForUser
+EventForUserByDomain
 Search-FullNameToSamAccount
 Ldap-GetProperty
 Search-UserPassword
