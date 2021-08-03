@@ -1,5 +1,81 @@
 # Mr.Un1k0d3r RingZer0 Team
 
+function Search-EventForUserByDomain {
+
+	param(
+	[Parameter(Mandatory=$True, ValueFromPipeline=$true)]
+	[string]$Domain,
+	[Parameter(Mandatory=$False)]
+	[string]$ComputerName = (Get-Item env:COMPUTERNAME).Value,
+	[Parameter(Mandatory=$False)]
+	[switch]$FindDC = $False,
+	[Parameter(Mandatory=$False)]
+	[switch]$FullMessage = $False,
+	[Parameter(Mandatory=$False)]
+	[string]$Username,
+	[Parameter(Mandatory=$False)]
+	[string]$Password
+	)
+	
+	BEGIN {
+		if($Username -ne "") {
+			$SecurePassword = ConvertTo-SecureString $Password -AsPlainText -Force
+			$Creds = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $Username, $SecurePassword
+		}	
+	}
+	
+	PROCESS {
+		[System.Collections.ArrayList]$dcs = @() 
+		if($FindDC) {
+			Write-Output "[+] Enumerating all the DCs"
+			ForEach($dc in [DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain().DomainControllers) {
+				Write-Output "[+] DC found: $($dc.Name)"
+				$dcs.Add($dc.Name) | Out-Null
+			}
+		} else {
+			$dcs.Add($ComputerName) | Out-Null
+		}
+		
+		ForEach($dc in $dcs) {
+			ForEach($item in $Domain) {
+				Write-Output "[+] Parsing $($dc) Logs looking for $($item)"
+				if($Creds) {
+					Write-Output "[*] Remotely authenticated as $($Username)"
+					$xmlFilter = "<QueryList><Query Id=""0"" Path=""Security""><Select Path=""Security"">*[System[(EventID=4624)] and EventData[Data[@Name=""TargetDomainName""]=""$($item)""]]</Select></Query></QueryList>";
+					$data = Get-WinEvent -FilterXml $xmlFilter -ComputerName $dc -ErrorAction SilentlyContinue -Credential $Creds | Select Message;
+				} else {
+					$xmlFilter = "<QueryList><Query Id=""0"" Path=""Security""><Select Path=""Security"">*[System[(EventID=4624)] and EventData[Data[@Name=""TargetDomainName""]=""$($item)""]]</Select></Query></QueryList>";
+					$data = Get-WinEvent -FilterXml $xmlFilter -ComputerName $dc -ErrorAction SilentlyContinue | Select Message;				
+				}
+				if($data) {
+					ForEach($entry in $data) {
+						Write-Output "`n[+] Event found" 
+						
+						If($FullMessage) {
+							Write-Output $entry.Message
+						} Else {
+							ForEach($Line in $entry.Message.Split("`n")) {
+								$Line | Select-String -Pattern "Account Name:"
+								$Line | Select-String -Pattern "Account Domain:"
+								$Line | Select-String -Pattern "Security ID:"
+								$Line | Select-String -Pattern "Source Network Address:"
+								$Line | Select-String -Pattern "Workstation Name:"
+								$Line | Select-String -Pattern "Process Name:"
+							}
+						}
+					}
+				} else {
+					Write-Output "[-] No event found on $($dc)..."
+				}
+			}
+		}
+	}
+	
+	END {
+		Write-Output "[+] Process completed..."
+	}
+}
+
 function Search-EventForUser {
 
 	param(
