@@ -13,6 +13,7 @@ Utility.ps1: Contain several cmdlets
 Run-As.ps1: Run a process as another user (credentials)
 Get-ProcessList.ps1: List processes, owner and command line arguments
 Remote-RegisterProtocolHandler.ps1: Use protocol handler to run your command to bypass some detection
+Add-UserLogonScript: Add a logon script to a specific user
 ```
 
 # Search-EventForUser.ps1 Usage
